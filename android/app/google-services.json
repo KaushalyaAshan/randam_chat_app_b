@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "19391297851",
+    "project_id": "random-chat-app-b",
+    "storage_bucket": "random-chat-app-b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19391297851:android:6f135d92c1ccf752155f1e",
+        "android_client_info": {
+          "package_name": "com.example.randam_chat_app_b"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7VNmCt0tobF7gx8XzHCLCKuvY0r-_d-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
