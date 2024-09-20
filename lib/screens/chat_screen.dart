@@ -7,7 +7,7 @@ class ChatScreen extends StatefulWidget {
   final String chatId;
   final String chatName;
 
-   ChatScreen({required this.chatId, required this.chatName});
+  ChatScreen({required this.chatId, required this.chatName});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -90,6 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
       _showError('Failed to send message: $e');
     }
   }
+
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -98,6 +99,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
@@ -128,7 +130,12 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           Expanded(
             child: StreamBuilder(
-              stream: _firestore.collection('chats').doc(widget.chatId).collection('messages').orderBy('createdAt', descending: true).snapshots(),
+              stream: _firestore
+                  .collection('chats')
+                  .doc(widget.chatId)
+                  .collection('messages')
+                  .orderBy('createdAt', descending: true)
+                  .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
@@ -146,45 +153,32 @@ class _ChatScreenState extends State<ChatScreen> {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     var message = snapshot.data!.docs[index];
-                    print(message);
                     bool isMe = message['senderId'] == _auth.currentUser?.uid;
 
-                    return Container(
-                      alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+                    return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-                      child: Column(
-                        crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                        children: [
-                          if (isMe)
-                            const Padding(
-                              padding: EdgeInsets.only(bottom: 4.0),
-                              child: CircleAvatar(
-                                child: Text('Me'),
-                                backgroundColor: Colors.cyan,
-                              ),
-                            ),
-                          Container(
-                            padding: const EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                              color: isMe ? Colors.cyan[100] : Colors.grey[200],
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              message['text'],
-                              style: TextStyle(color: Colors.black87),
+                      child: Align(
+                        alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+                        child: Container(
+                          padding: const EdgeInsets.all(12.0),
+                          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
+                          decoration: BoxDecoration(
+                            color: isMe ? Colors.cyan[300] : Colors.grey[300],
+                            borderRadius: BorderRadius.only(
+                              topLeft: isMe ? Radius.circular(12) : Radius.zero,
+                              topRight: isMe ? Radius.zero : Radius.circular(12),
+                              bottomLeft: const Radius.circular(12),
+                              bottomRight: const Radius.circular(12),
                             ),
                           ),
-                          if (!isMe)
-                            const Padding(
-                              padding: EdgeInsets.only(top: 4.0),
-                              child: CircleAvatar(
-                                child: Text('user'),
-                                backgroundColor: Colors.grey,
-                              ),
-                            ),
-                        ],
+                          child: Text(
+                            message['text'],
+                            style: TextStyle(color: Colors.black87),
+                          ),
+                        ),
                       ),
                     );
+
                   },
                 );
               },
