@@ -56,9 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-        actions: [
 
-        ],
       ),
       body: Container(
         decoration: BoxDecoration(color: Colors.grey[100]),

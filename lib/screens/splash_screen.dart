@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _initializeApp() async {
     await Firebase.initializeApp();
-    await Future.delayed(const Duration(seconds: 5)); // Simulate some loading time
+    await Future.delayed(const Duration(seconds: 3)); // Simulate some loading time
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -34,8 +34,8 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Image.asset(
               'assets/images/logo1.jpg', // Add your logo image in the assets directory
-              width: 150,
-              height: 150,
+              width: 200,
+              height: 200,
             ),
             const SizedBox(height: 30),
             const Text(
