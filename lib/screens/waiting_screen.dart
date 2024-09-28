@@ -21,10 +21,12 @@ class _WaitingScreenState extends State<WaitingScreen> {
   @override
   void initState() {
     super.initState();
-    _authService.matchUsers();
-    _checkIfUserReady();
-   _updateStatusToWaiting();
+    _updateStatusToWaiting();
     _listenForAvailableUsers();
+    _checkIfUserReady();
+    _authService.matchUsers();
+
+   // _listenForAvailableUsers();
   }
   void _checkIfUserReady() {
     String currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
@@ -40,7 +42,6 @@ class _WaitingScreenState extends State<WaitingScreen> {
       }
     });
   }
-
   Future<void> _updateStatusToWaiting() async {
     User? user = _auth.currentUser;
     if (user != null) {
@@ -51,7 +52,6 @@ class _WaitingScreenState extends State<WaitingScreen> {
       });
     }
   }
-
   void _listenForAvailableUsers() {
     _userSubscription = _firestore
         .collection('users')
