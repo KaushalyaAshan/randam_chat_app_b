@@ -4,14 +4,12 @@ import '../../services/auth_service.dart';
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
-}
-
+}//
 class _LoginScreenState extends State<LoginScreen> {
   final AuthService _authService = AuthService();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
-  String _gender = 'Male';
-
+  String _gender = 'Male';//ashan kaushsalya
   void _signInAnonymously(BuildContext context) async {
     if (_nameController.text.isNotEmpty && _ageController.text.isNotEmpty) {
       await _authService.signInAnonymously(
@@ -19,7 +17,6 @@ class _LoginScreenState extends State<LoginScreen> {
         age: _ageController.text,
         gender: _gender,
       );
-
       // Navigate to the waiting screen
       Navigator.pushReplacementNamed(context, '/waiting');
     } else {
@@ -28,8 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     }
   }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-
       ),
+
       body: Container(
         decoration: BoxDecoration(color: Colors.grey[100]),
         child: Center(
@@ -163,7 +158,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
   Widget _genderOption(String gender) {
     return ChoiceChip(
       label: Text(gender),

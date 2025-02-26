@@ -2,19 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'login_screen.dart';
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
-
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
     _initializeApp();
   }
-
   Future<void> _initializeApp() async {
     await Firebase.initializeApp();
     await Future.delayed(const Duration(seconds: 3)); // Simulate some loading time
@@ -23,7 +20,6 @@ class _SplashScreenState extends State<SplashScreen> {
       MaterialPageRoute(builder: (context) => LoginScreen()),
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

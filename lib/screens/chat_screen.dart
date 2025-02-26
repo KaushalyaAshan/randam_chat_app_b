@@ -29,6 +29,11 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
     _updateStatusToChat();
     _getUserDetails();
+
+    // Scroll to bottom when the screen is first built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToBottom();
+    });
   }
 
   Future<void> _updateStatusToChat() async {
@@ -81,6 +86,8 @@ class _ChatScreenState extends State<ChatScreen> {
             'senderId': userId,
           });
           _messageController.clear();
+
+          // Scroll to the bottom after sending a message
           _scrollToBottom();
         } else {
           _showError('User is not logged in. Please log in to send messages.');
@@ -102,7 +109,13 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
     });
   }
 
@@ -134,7 +147,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   .collection('chats')
                   .doc(widget.chatId)
                   .collection('messages')
-                  .orderBy('createdAt', descending: true)
+                  .orderBy('createdAt', descending: false) // Ensure messages are ordered correctly
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -147,9 +160,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   );
                 }
 
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  _scrollToBottom(); // Scroll to the bottom when new data is available
+                });
+
                 return ListView.builder(
                   controller: _scrollController,
-                  reverse: true,
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     var message = snapshot.data!.docs[index];
@@ -178,7 +194,6 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                     );
-
                   },
                 );
               },

@@ -3,7 +3,6 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
-
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
 /// Example:
@@ -39,7 +38,6 @@ class DefaultFirebaseOptions {
         );
     }
   }
-
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyA14Hwgst4p_7_3TjW2eJN2BbwhZZI2_2Q',
     appId: '1:19391297851:web:73e12c2a9d1e4781155f1e',
@@ -49,7 +47,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'random-chat-app-b.appspot.com',
     measurementId: 'G-NP1LPDZ0BX',
   );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC7VNmCt0tobF7gx8XzHCLCKuvY0r-_d-c',
     appId: '1:19391297851:android:6f135d92c1ccf752155f1e',
@@ -57,7 +54,6 @@ class DefaultFirebaseOptions {
     projectId: 'random-chat-app-b',
     storageBucket: 'random-chat-app-b.appspot.com',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAIdASJQAZ09xrHnxZD9C82K2mH1A-f8io',
     appId: '1:19391297851:ios:4c20162f9108b896155f1e',
@@ -66,7 +62,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'random-chat-app-b.appspot.com',
     iosBundleId: 'com.example.randamChatAppb',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyAIdASJQAZ09xrHnxZD9C82K2mH1A-f8io',
     appId: '1:19391297851:ios:4c20162f9108b896155f1e',
@@ -75,7 +70,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'random-chat-app-b.appspot.com',
     iosBundleId: 'com.example.randamChatAppb',
   );
-
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyA14Hwgst4p_7_3TjW2eJN2BbwhZZI2_2Q',
     appId: '1:19391297851:web:91f1d454f686b00a155f1e',

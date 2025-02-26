@@ -10,14 +10,11 @@ class WaitingScreen extends StatefulWidget {
   @override
   _WaitingScreenState createState() => _WaitingScreenState();
 }
-
 class _WaitingScreenState extends State<WaitingScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final AuthService _authService = AuthService();
   late StreamSubscription _userSubscription;
-
-
   @override
   void initState() {
     super.initState();
@@ -25,8 +22,7 @@ class _WaitingScreenState extends State<WaitingScreen> {
     _listenForAvailableUsers();
     _checkIfUserReady();
     _authService.matchUsers();
-
-   // _listenForAvailableUsers();
+    // _listenForAvailableUsers();
   }
   void _checkIfUserReady() {
     String currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
@@ -109,8 +105,6 @@ class _WaitingScreenState extends State<WaitingScreen> {
     // Return the chat ID after the write operation is complete
     return chatRef.id;
   }
-
-
   Future<void> _goBackToLogin() async {
     User? user = _auth.currentUser;
 
@@ -123,7 +117,6 @@ class _WaitingScreenState extends State<WaitingScreen> {
 
     Navigator.pushReplacementNamed(context, '/login');
   }
-
   Future<void> _clearUserDatabaseDetails(String userId) async {
     await _firestore.collection('users').doc(userId).delete();
 
@@ -136,13 +129,11 @@ class _WaitingScreenState extends State<WaitingScreen> {
       await chat.reference.delete();
     }
   }
-
   @override
   void dispose() {
     _userSubscription.cancel();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
